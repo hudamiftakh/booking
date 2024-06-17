@@ -92,7 +92,7 @@
                       <label class="fw-semibold" for=""
                         style="float: left; font-size: 18px; padding-bottom: 8px;">Whatsapp <label for=""
                           style="color:red">*</label></label>
-                      <input type="number" name="whatsapp" style="height: 50px;" name="example-input-large"
+                      <input type="number" name="whatsapp" min="12" style="height: 50px;" name="example-input-large"
                         class="form-control form-control-lg" placeholder="Whatsapp" required>
                     </div>
                   </div>
@@ -270,7 +270,7 @@
 
     </section>
   </div>
-  <center><b>Sini Self Studo <?php echo date('Y') ?></b> <br> Kediri Jawa Timur</center>
+  <center><b>Sini Self Studo <?php echo date('Y') ?></b> <br> Tulungagung Jawa Timur</center>
   </div>
   </div>
   </div>

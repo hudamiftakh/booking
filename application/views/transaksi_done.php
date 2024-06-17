@@ -64,14 +64,14 @@
         $showDataResult = $this->db->get_where('m_booking', array('kode_transaksi' => $_REQUEST['kode_transaksi']));
         $showData = $showDataResult->row_array();
         ?>
-        <?php if($showDataResult->num_rows()<=0) : ?>
+        <?php if ($showDataResult->num_rows() <= 0): ?>
             <div class="p-2">
                 <div class="alert alert-danger">
                     <label for="" style="font-weight: bold;">Mohon maaf !!</label> <br>
                     <label for="">Kode booking tidak ditemukan, pastikan kode booking anda benar</label>
                 </div>
             </div>
-        <?php exit; endif; ?>
+            <?php exit; endif; ?>
         <section class="py-md-5 mb-5">
             <div class="container-fluid">
                 <div class="row justify-content-center">
@@ -136,38 +136,43 @@
                                             $addon = explode('|', $value);
                                             $harga_addon = $this->db->get_where('m_paket', array('id' => $addon[1]))->row_array();
                                             $total_harga += $harga_addon['harga']; // Tambahkan harga addon ke total
-                                            ?>
-                                            <tr>
-                                                <td>AddOn</td>
-                                                <td><?php echo $harga_addon['nm_paket']; ?></td>
-                                                <td><?php echo number_format($harga_addon['harga']); ?></td>
-                                            </tr>
+                                            if (!empty($harga_addon)):
+                                                ?>
+                                                <tr>
+                                                    <td>AddOn</td>
+                                                    <td><?php echo $harga_addon['nm_paket']; ?></td>
+                                                    <td><?php echo number_format($harga_addon['harga']); ?></td>
+                                                </tr>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
 
                                         <!-- Jika ada paket tambahan untuk cetak -->
                                         <?php
-                                        foreach (explode('#', $showData['paket']) as $key => $value):
+                                        foreach (explode('#', $showData['cetak']) as $key => $value):
                                             $paket = explode('|', $value);
                                             $harga_paket = $this->db->get_where('m_paket', array('id' => $paket[1]))->row_array();
                                             $total_harga += $harga_paket['harga']; // Tambahkan harga cetak ke total
+                                            if (!empty($harga_paket)):
                                             ?>
                                             <tr>
                                                 <td>Cetak</td>
                                                 <td><?php echo $harga_paket['nm_paket']; ?></td>
                                                 <td><?php echo number_format($harga_paket['harga']); ?></td>
                                             </tr>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
 
                                         <!-- Tampilkan total harga -->
                                         <tr>
                                             <th colspan="2">Total</th>
                                             <th>
-                                                <?php 
-                                                echo number_format($total_harga); 
+                                                <?php
+                                                echo number_format($total_harga);
                                                 $kode_transaksi = $_REQUEST['kode_transaksi'];
-                                                $this->db->where(array('kode_transaksi'=>$kode_transaksi))->update('m_booking', array('total'=>$total_harga));
+                                                $this->db->where(array('kode_transaksi' => $kode_transaksi))->update('m_booking', array('total' => $total_harga));
                                                 // echo $this->db->last_query();
-                                            ?></th>
+                                                ?>
+                                            </th>
                                         </tr>
                                     </table>
 
@@ -188,8 +193,9 @@
                 </div>
                 <div class="modal-body">
                     <center><img src="<?php echo base_url(); ?>assets/qris.jpeg" alt="QRIS" class="img-fluid"> <br>
-                    <a href="<?php echo base_url(); ?>assets/qris.jpeg" download="<?php echo base_url(); ?>assets/qris.jpeg">Download Qris</a>
-                </center>
+                        <a href="<?php echo base_url(); ?>assets/qris.jpeg"
+                            download="<?php echo base_url(); ?>assets/qris.jpeg">Download Qris</a>
+                    </center>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -77,7 +77,7 @@ function ribuan_ke_k($number)
     }
 </style>
 <div class="row">
-     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
         <div class="card border-bottom border-info">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -92,7 +92,7 @@ function ribuan_ke_k($number)
             </div>
         </div>
     </div>
-     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
         <div class="card border-bottom border-info">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -109,7 +109,7 @@ function ribuan_ke_k($number)
     </div>
     <?php $total_hari_ini = $this->db->get_where('m_booking', array('tanggal' => date('Y-m-d'))); ?>
     <?php $total_total_hari_ini = $this->db->select('sum(total) as total')->get_where('m_booking', array('tanggal' => date('Y-m-d')))->row_array(); ?>
-     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
         <div class="card border-bottom border-danger">
             <div class="card-body">
                 <div class="d-flex no-block align-items-center">
@@ -127,7 +127,7 @@ function ribuan_ke_k($number)
             </div>
         </div>
     </div>
-     <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
         <div class="card border-bottom border-danger">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -164,14 +164,16 @@ function ribuan_ke_k($number)
                                 <div class="mb-4 row align-items-center">
                                     <label class="form-label fw-semibold col-sm-3 col-form-label text-end">Mulai</label>
                                     <div class="col-sm-9">
-                                        <input type="date" name="mulai" value="<?php echo $_REQUEST['mulai']; ?>" class="form-control form-input-lg">
+                                        <input type="date" name="mulai" value="<?php echo $_REQUEST['mulai']; ?>"
+                                            class="form-control form-input-lg">
                                     </div>
                                 </div>
                                 <div class="mb-4 row align-items-center">
                                     <label
                                         class="form-label fw-semibold col-sm-3 col-form-label text-end">Sampai</label>
                                     <div class="col-sm-9">
-                                        <input type="date" name="sampai" value="<?php echo $_REQUEST['sampai']; ?>" class="form-control form-input-lg">
+                                        <input type="date" name="sampai" value="<?php echo $_REQUEST['sampai']; ?>"
+                                            class="form-control form-input-lg">
                                     </div>
                                 </div>
                                 <div class="mb-4 row align-items-center">
@@ -214,7 +216,7 @@ function ribuan_ke_k($number)
                 </thead>
                 <tbody>
                     <?php
-                    if(empty($result)){
+                    if (empty($result)) {
                         echo "<tr><td colspan='7'><center>Data booking kosong</center></td></tr>";
                         // exit;
                     }
@@ -233,10 +235,20 @@ function ribuan_ke_k($number)
                             </td>
                             <td nowrap>
                                 <?php
+                                // Array nama hari dalam bahasa Indonesia
                                 $nama_hari = array('Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu');
-                                $tanggal_indonesia = date('d F Y', strtotime($vData['tanggal']));
+
+                                // Tanggal dari database
+                                $tanggal_database = $vData['tanggal'];
+
+                                // Konversi tanggal ke format waktu dan format ke dalam format Indonesia
+                                $tanggal_waktu = strtotime($tanggal_database);
+                                $tanggal_indonesia = date('d F Y', $tanggal_waktu);
+
+                                // Ambil nama hari berdasarkan indeks hari dalam format waktu
+                                $nama_hari_indonesia = $nama_hari[date('w', $tanggal_waktu)];
                                 ?>
-                                <b><?php echo $nama_hari[date('w', strtotime($tanggal_database))] . ", " . $tanggal_indonesia; ?></b>
+                                <b><?php echo $nama_hari_indonesia . ", " . $tanggal_indonesia; ?></b>
                                 <br>
                                 <b style="padding-top: 100px; !important">
                                     <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $vData['jam']; ?>
@@ -255,24 +267,31 @@ function ribuan_ke_k($number)
                                     echo "<li>" . $no++ . ". " . $paket[0] . "</li>";
                                     foreach (explode('#', $vData['addon']) as $key => $value):
                                         $addon = explode('|', $value);
-                                        echo "<li>" . $no++ . "." . $addon[0] . "</li>";
+                                        if (!empty($addon[0])):
+                                            echo "<li>" . $no++ . "." . $addon[0] . "</li>";
+                                        endif;
                                     endforeach;
                                     foreach (explode('#', $vData['cetak']) as $key => $value):
-                                        $addon = explode('|', $value);
-                                        echo "<li>" . $no++ . ". Cetak " . $addon[0] . "</li>";
+                                        $cetak = explode('|', $value);
+                                        if (!empty($cetak[0])):
+                                        echo "<li>" . $no++ . ". Cetak " . $cetak[0] . "</li>";
+                                        endif; 
                                     endforeach;
                                     ?>
                                 </ul>
                                 <u>Total Rp. <?php echo number_format($vData['total']); ?></u>
                             </td>
-                            <td><span class="<?php echo ($vData['status']=='baru') ? 'badge bg-warning' : 'badge bg-success'; ?>"><small><?php echo ucfirst($vData['status']); ?></small></span></td>
+                            <td><span
+                                    class="<?php echo ($vData['status'] == 'baru') ? 'badge bg-warning' : 'badge bg-success'; ?>"><small><?php echo ucfirst($vData['status']); ?></small></span>
+                            </td>
                             <td nowrap>
                                 <form action="" method="POST">
-                                    <input type="hidden" name="kode_transaksi" value="<?php echo $vData['kode_transaksi']; ?>">
-                                    <button onclick="return confirm('Apakah anda yakin ?');" class="btn btn-success btn-sm" name="selesai" title="selesai"><i
-                                            class="fa fa-check"></i></button>
-                                    <button onclick="return confirm('Apakah anda yakin ?');" class="btn btn-danger btn-sm" name="hapus" title="Batalkan / Hapus"><i
-                                            class="fa fa-refresh"></i></button>
+                                    <input type="hidden" name="kode_transaksi"
+                                        value="<?php echo $vData['kode_transaksi']; ?>">
+                                    <button onclick="return confirm('Apakah anda yakin ?');" class="btn btn-success btn-sm"
+                                        name="selesai" title="selesai"><i class="fa fa-check"></i></button>
+                                    <button onclick="return confirm('Apakah anda yakin ?');" class="btn btn-danger btn-sm"
+                                        name="hapus" title="Batalkan / Hapus"><i class="fa fa-refresh"></i></button>
                                 </form>
                             </td>
                         </tr>

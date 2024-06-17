@@ -158,7 +158,7 @@ class dashboard extends CI_Controller
         $jam = $_REQUEST['jam'];
         $paket = $_REQUEST['paket'];
         $add_on = rtrim($addon, '#');
-        $cetak = rtrim($cetak, '#');
+        $cetak_on = rtrim($cetak, '#');
         $upload_instagram = $_REQUEST['upload_instagram'];
         $metode = $_REQUEST['metode'];
         $data = array(
@@ -169,7 +169,7 @@ class dashboard extends CI_Controller
             'jam' => $jam,
             'paket' => $paket,
             'addon' => $add_on,
-            'cetak' => $cetak,
+            'cetak' => $cetak_on,
             'instagram' => $upload_instagram,
             'metode' => $metode,
             'status' => 'baru'
