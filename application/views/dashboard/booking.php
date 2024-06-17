@@ -187,8 +187,9 @@ function ribuan_ke_k($number)
                                     <label for="exampleInputPassword1"
                                         class="form-label fw-semibold col-sm-3 col-form-label text-end"></label>
                                     <div class="col-sm-9">
-                                        <button class="btn btn-primary btn-lg" type="submit"
+                                        <button class="btn btn-primary" type="submit"
                                             name="filter">Filter</button>
+                                        <a href="<?php echo base_url('dashboard/booking'); ?>" class="btn btn-danger">Reset</a>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +268,7 @@ function ribuan_ke_k($number)
                                     echo "<li>" . $no++ . ". " . $paket[0] . "</li>";
                                     foreach (explode('#', $vData['addon']) as $key => $value):
                                         $addon = explode('|', $value);
-                                        if (!empty($addon[0])):
+                                        if (!empty($addon[0 ])):
                                             echo "<li>" . $no++ . "." . $addon[0] . "</li>";
                                         endif;
                                     endforeach;

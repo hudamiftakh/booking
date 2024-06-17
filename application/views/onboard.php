@@ -32,6 +32,19 @@
       });
     }
   </script>
+  <style>
+    .btn-custom {
+      background-color: #364d39;
+      color: white;
+      width: 100%;
+      height: 70px;
+      font-size: 1.5rem;
+    }
+
+    .btn-custom:hover {
+      background-color: #2e4233;
+    }
+  </style>
 </head>
 
 <body style="background-color: white">
@@ -254,12 +267,14 @@
 
       <div class="container">
         <div class="row" id="lightgallery">
-          <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-4" data-src="<?php echo base_url('assets/Artboard 6.png'); ?>">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-4"
+            data-src="<?php echo base_url('assets/Artboard 6.png'); ?>">
             <a href="<?php echo base_url('assets/Artboard 6.png'); ?>">
               <img src="<?php echo base_url('assets/Artboard 6.png'); ?>" class="img-fluid">
             </a>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-4" data-src="<?php echo base_url('assets/Artboard 7.png'); ?>">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-4"
+            data-src="<?php echo base_url('assets/Artboard 7.png'); ?>">
             <a href="<?php echo base_url('assets/Artboard 7.png'); ?>">
               <img src="<?php echo base_url('assets/Artboard 7.png'); ?>" class="img-fluid">
             </a>
@@ -270,7 +285,23 @@
 
     </section>
   </div>
-  <center><b>Sini Self Studo <?php echo date('Y') ?></b> <br> Tulungagung Jawa Timur</center>
+  <center>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <a href="https://www.instagram.com/siniselfstudio?igsh=dGN4cXB4MDdyd2Fw" class="btn btn-custom d-flex align-items-center justify-content-center" style="border-radius: 20px;">
+            <i class="fa fa-instagram me-2"></i> siniselfstudio
+          </a>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <a href="https://wa.me/628128789391" class="btn btn-custom d-flex align-items-center justify-content-center" style="border-radius: 20px;">
+            <i class="fa fa-whatsapp me-2"></i> 08128789391
+          </a>
+        </div>
+      </div>
+    </div>
+    <b>Sini Self Studio <?php echo date('Y') ?></b> <br> Tulungagung Jawa Timur <br>
+  </center>
   </div>
   </div>
   </div>
